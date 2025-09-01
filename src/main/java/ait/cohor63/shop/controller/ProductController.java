@@ -61,7 +61,7 @@ public class ProductController {
         return service.deleteProductByTitle(title);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/restore/{id}")
     public Product restoreById(@PathVariable Long id) {
         return service.restoreProductById(id);
     }

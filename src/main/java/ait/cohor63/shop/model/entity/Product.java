@@ -1,5 +1,7 @@
 package ait.cohor63.shop.model.entity;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -8,11 +10,22 @@ import java.util.Objects;
  * {@code @date} 29.08.2025
  */
 
+@Entity
+@Table(name = "product")
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "price")
     private BigDecimal price;
+
+    @Column
     private boolean active;
 
     @Override
