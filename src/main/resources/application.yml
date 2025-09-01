@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: Shop_63
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/g_63_shop
+    username: my_user
+    password: pos1234
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+
+
+server:
+  servlet:
+    context-path: /api
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
