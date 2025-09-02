@@ -1,5 +1,6 @@
 package ait.cohor63.shop.service.interfaces;
 
+import ait.cohor63.shop.model.dto.ProductDTO;
 import ait.cohor63.shop.model.entity.Product;
 
 import java.math.BigDecimal;
@@ -12,17 +13,17 @@ import java.util.List;
 
 public interface ProductService {
 
-    Product saveProduct(Product product);
+    ProductDTO saveProduct(ProductDTO productDTO);
 
-    List<Product> getAllActiveProducts();
-    Product getProductById(Long id);
+    List<ProductDTO> getAllActiveProducts();
+    ProductDTO getProductById(Long id);
 
-    Product updateProduct(Long id, Product product);
+    ProductDTO updateProduct(Long id, ProductDTO productDTO);
 
-    Product deleteProductById(Long id);
+    ProductDTO deleteProductById(Long id);
 
-    Product deleteProductByTitle(String title);
-    Product restoreProductById(Long id);
+    ProductDTO deleteProductByTitle(String title);
+    ProductDTO restoreProductById(Long id);
 
     long getProductCount();
 

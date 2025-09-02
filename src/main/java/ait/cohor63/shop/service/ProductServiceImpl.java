@@ -1,5 +1,6 @@
 package ait.cohor63.shop.service;
 
+import ait.cohor63.shop.model.dto.ProductDTO;
 import ait.cohor63.shop.model.entity.Product;
 import ait.cohor63.shop.repository.ProductRepository;
 import ait.cohor63.shop.service.interfaces.ProductService;
@@ -26,13 +27,13 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Product saveProduct(Product product) {
+    public ProductDTO saveProduct(ProductDTO productDTO) {
         product.setActive(true);
         return repository.save(product);
     }
 
     @Override
-    public List<Product> getAllActiveProducts() {
+    public List<ProductDTO> getAllActiveProducts() {
 //        List<Product> result = new ArrayList<>();
 //        List<Product> list = repository.findAll();
 //        for (Product product : list) {
@@ -43,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
+    public ProductDTO getProductById(Long id) {
         Product product = repository.findById(id).orElse(null);
 
         // null ->
@@ -62,22 +63,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
+    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
         return null;
     }
 
     @Override
-    public Product deleteProductById(Long id) {
+    public ProductDTO deleteProductById(Long id) {
         return null;
     }
 
     @Override
-    public Product deleteProductByTitle(String title) {
+    public ProductDTO deleteProductByTitle(String title) {
         return null;
     }
 
     @Override
-    public Product restoreProductById(Long id) {
+    public ProductDTO restoreProductById(Long id) {
         return null;
     }
 

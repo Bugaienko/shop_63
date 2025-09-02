@@ -1,5 +1,6 @@
 package ait.cohor63.shop.model.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -9,22 +10,26 @@ import java.util.Objects;
  * @author Sergey Bugaenko
  * {@code @date} 29.08.2025
  */
-
 @Entity
 @Table(name = "product")
+@Schema(description = "Class that describes Product")
 public class Product {
 
+    @Schema(description = "Product unique identifier", example = "777", accessMode = Schema.AccessMode.READ_ONLY)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    @Schema(description = "Product title", example = "Banana")
     @Column(name = "title")
     private String title;
 
+    @Schema(description = "Product price", example = "8.50")
     @Column(name = "price")
     private BigDecimal price;
 
+    @Schema(description = "Id product available", accessMode = Schema.AccessMode.READ_ONLY)
     @Column
     private boolean active;
 
