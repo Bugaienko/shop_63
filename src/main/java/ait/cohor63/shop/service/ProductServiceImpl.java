@@ -4,6 +4,7 @@ import ait.cohor63.shop.model.dto.ProductDTO;
 import ait.cohor63.shop.model.entity.Product;
 import ait.cohor63.shop.repository.ProductRepository;
 import ait.cohor63.shop.service.interfaces.ProductService;
+import ait.cohor63.shop.service.mapping.ProductMappingService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,15 +22,19 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
 
-    public ProductServiceImpl(ProductRepository repository) {
-        this.repository = repository;
-    }
+    private final ProductMappingService mapper;
 
+
+    public ProductServiceImpl(ProductRepository repository, ProductMappingService mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     @Override
     public ProductDTO saveProduct(ProductDTO productDTO) {
-        product.setActive(true);
-        return repository.save(product);
+        Product product = mapper.mapDtoToEntity(productDTO);
+//        product.setActive(true);
+        return mapper.mapEntityToDto(repository.save(product));
     }
 
     @Override
@@ -40,7 +45,11 @@ public class ProductServiceImpl implements ProductService {
 //            if (product.isActive()) result.add(product);
 //        }
 //        return result;
-        return repository.findAll().stream().filter(Product::isActive).toList();
+        return repository.findAll().stream()
+                .filter(Product::isActive)
+                // Маппинг каждый продукт в DTO
+                .map(mapper::mapEntityToDto)
+                .toList();
     }
 
     @Override
@@ -56,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
             return null;
         }
 
-        return product;
+        return mapper.mapEntityToDto(product);
 
         // false && ? -> false
         // false & ? (будет посчитано) -> false
