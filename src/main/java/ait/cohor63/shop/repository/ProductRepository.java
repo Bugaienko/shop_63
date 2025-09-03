@@ -3,6 +3,8 @@ package ait.cohor63.shop.repository;
 import ait.cohor63.shop.model.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * @author Sergey Bugaenko
  * {@code @date} 01.09.2025
@@ -12,4 +14,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     // Ни одного метода внутри не написано
+    List<Product> findByActiveTrue();
+
 }
