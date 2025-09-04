@@ -20,7 +20,10 @@ server:
   servlet:
     context-path: /api
 
-
+key:
+  access: ${KEY_ACCESS}
+  refresh: ${KEY_REFRESH}
+#  test: ${TEST}
 
 
 
