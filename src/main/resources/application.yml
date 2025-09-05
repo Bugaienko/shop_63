@@ -3,9 +3,9 @@ spring:
     name: Shop_63
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/g_63_shop
-    username: my_user
-    password: pos1234
+    url: jdbc:postgresql://localhost:5432/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   liquibase:
