@@ -25,7 +25,11 @@ key:
   refresh: ${KEY_REFRESH}
 #  test: ${TEST}
 
-
+logging:
+  file:
+   name: logs/log.log
+  level:
+    root: info
 
 
 

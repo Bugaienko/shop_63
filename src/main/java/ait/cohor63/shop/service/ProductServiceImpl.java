@@ -5,6 +5,8 @@ import ait.cohor63.shop.model.entity.Product;
 import ait.cohor63.shop.repository.ProductRepository;
 import ait.cohor63.shop.service.interfaces.ProductService;
 import ait.cohor63.shop.service.mapping.ProductMappingService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -23,6 +25,9 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
 
     private final ProductMappingService mapper;
+
+    // SLF4J
+    private final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 
     public ProductServiceImpl(ProductRepository repository, ProductMappingService mapper) {
@@ -55,21 +60,34 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO getProductById(Long id) {
         Product product = repository.findById(id).orElse(null);
-
-        // null ->
-        // true || ? -> true
-        // Product
-        // false || ? ->
-
         if (product == null || !product.isActive()) {
             return null;
         }
-
         return mapper.mapEntityToDto(product);
-
-        // false && ? -> false
-        // false & ? (будет посчитано) -> false
     }
+
+//    @Override
+//    public ProductDTO getProductById(Long id) {
+//        logger.info("Method getProductById called with parameter: {}", id);
+//        logger.warn("Method getProductById called with parameter: {}", id);
+//        logger.error("Method getProductById called with parameter: {}", id);
+//
+//        Product product = repository.findById(id).orElse(null);
+//
+//        // null ->
+//        // true || ? -> true
+//        // Product
+//        // false || ? ->
+//
+//        if (product == null || !product.isActive()) {
+//            return null;
+//        }
+//
+//        return mapper.mapEntityToDto(product);
+//
+//        // false && ? -> false
+//        // false & ? (будет посчитано) -> false
+//    }
 
     @Override
     public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
