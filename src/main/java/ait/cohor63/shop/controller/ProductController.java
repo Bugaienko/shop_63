@@ -1,5 +1,7 @@
 package ait.cohor63.shop.controller;
 
+import ait.cohor63.shop.exception_handling.Response;
+import ait.cohor63.shop.exception_handling.exceptions.FirstTestException;
 import ait.cohor63.shop.model.dto.ProductDTO;
 import ait.cohor63.shop.model.entity.Product;
 import ait.cohor63.shop.service.interfaces.ProductService;
@@ -10,6 +12,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -61,7 +65,10 @@ public class ProductController {
             @ApiResponse(responseCode = "404", description = "ProductDTO not found", content = @Content) })
 
     @GetMapping("/{id}")
-    public ProductDTO getById(@Parameter(description = "The id that needs to be fetched", required = true) @PathVariable Long id) {
+    public ProductDTO getById(
+            @Parameter(description = "The id that needs to be fetched", required = true)
+            @PathVariable Long id) {
+
         return service.getProductById(id);
     }
 
@@ -108,6 +115,17 @@ public class ProductController {
         return service.getAveragePrice();
     }
 
+    /*
+    + Точечная настройка
+    - Повторение кода, если логика одинаковая
+    - Более сложная поддержка
+     */
+    // Обработчик исключения прямо в контроллере
+    @ExceptionHandler(FirstTestException.class)
+    public ResponseEntity<Response> handleException(FirstTestException ex) {
+        Response response = new Response(ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
     // /products?title=Banana
 //    @DeleteMapping
@@ -122,7 +140,7 @@ public class ProductController {
 
 
 
-}
+} // End class
 
 // POST /products - POST - определяет действие (создание нового), /products - определяет ресурс с которым совершает действие
 // GET /products/2

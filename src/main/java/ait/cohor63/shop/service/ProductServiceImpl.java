@@ -1,5 +1,8 @@
 package ait.cohor63.shop.service;
 
+import ait.cohor63.shop.exception_handling.exceptions.FirstTestException;
+import ait.cohor63.shop.exception_handling.exceptions.SecondTestException;
+import ait.cohor63.shop.exception_handling.exceptions.ThirdTestException;
 import ait.cohor63.shop.model.dto.ProductDTO;
 import ait.cohor63.shop.model.entity.Product;
 import ait.cohor63.shop.repository.ProductRepository;
@@ -64,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
 
         // Если продукт не найден или его состояние active = false, выбрасываем исключение
         if (product == null || !product.isActive()) {
-            throw new RuntimeException("Product not active or not found");
+            throw new ThirdTestException("Product not active or not found");
 //            return null;
         }
 
