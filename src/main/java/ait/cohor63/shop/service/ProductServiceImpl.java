@@ -37,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO saveProduct(ProductDTO productDTO) {
+//        System.out.println("Работает метод saveProduct");
         Product product = mapper.mapDtoToEntity(productDTO);
 //        product.setActive(true);
         return mapper.mapEntityToDto(repository.save(product));
@@ -60,9 +61,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO getProductById(Long id) {
         Product product = repository.findById(id).orElse(null);
+
+        // Если продукт не найден или его состояние active = false, выбрасываем исключение
         if (product == null || !product.isActive()) {
-            return null;
+            throw new RuntimeException("Product not active or not found");
+//            return null;
         }
+
         return mapper.mapEntityToDto(product);
     }
 
