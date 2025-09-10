@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,9 @@ public class ProductController {
             content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ProductDTO.class)),
                     @Content(mediaType = "application/xml", schema = @Schema(implementation = ProductDTO.class)) }) })
     @PostMapping
-    public ProductDTO saveProduct(@Parameter(description = "Created product object") @RequestBody ProductDTO productDTO) {
+    public ProductDTO saveProduct(
+            @Parameter(description = "Created product object")
+            @Valid @RequestBody ProductDTO productDTO) {
         return service.saveProduct(productDTO);
     }
 
