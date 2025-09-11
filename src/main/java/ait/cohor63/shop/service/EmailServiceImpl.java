@@ -43,8 +43,6 @@ public class EmailServiceImpl implements EmailService {
         // Настройка кодировки и расположения шаблонов
         this.mailConfig.setDefaultEncoding("UTF-8");
         this.mailConfig.setTemplateLoader(new ClassTemplateLoader(this.getClass(), "/mail"));
-
-
     }
 
     @Override
