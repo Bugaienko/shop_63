@@ -4,6 +4,7 @@ import ait.cohor63.shop.model.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Sergey Bugaenko
@@ -16,4 +17,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // Ни одного метода внутри не написано
     List<Product> findByActiveTrue();
 
+    Optional<Product> findByTitleIgnoreCase(String title);
 }
