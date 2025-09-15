@@ -1,7 +1,9 @@
 package ait.cohor63.shop.service;
 
 import ait.cohor63.shop.model.dto.UserRegisterDTO;
+import ait.cohor63.shop.model.entity.ConfirmationCode;
 import ait.cohor63.shop.model.entity.User;
+import ait.cohor63.shop.repository.ConfirmationCodeRepository;
 import ait.cohor63.shop.repository.UserRepository;
 import ait.cohor63.shop.service.interfaces.EmailService;
 import ait.cohor63.shop.service.interfaces.RoleService;
@@ -11,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 
@@ -28,12 +31,15 @@ public class UserServiceImpl implements UserService {
     private final EmailService  emailService;
     private final UserMapperService mapper;
 
-    public UserServiceImpl(UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder encoder, EmailService emailService, UserMapperService mapper) {
+    private final ConfirmationCodeRepository confirmationCodeRepository;
+
+    public UserServiceImpl(UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder encoder, EmailService emailService, UserMapperService mapper, ConfirmationCodeRepository confirmationCodeRepository) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.encoder = encoder;
         this.emailService = emailService;
         this.mapper = mapper;
+        this.confirmationCodeRepository = confirmationCodeRepository;
     }
 
     @Override
@@ -69,6 +75,26 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         emailService.sendConfirmationEmail(user);
-
     }
+
+
+//    @Transactional
+    @Override
+    public String confirmEmail(String code) {
+        ConfirmationCode confirmation = confirmationCodeRepository.findByCode(code)
+                .orElseThrow(() -> new RuntimeException("Confirmation code not found"));
+
+        // проверяем, что срок действия кода НЕ истек.
+        if (confirmation.getExpired().isAfter(LocalDateTime.now())) {
+
+            User user = confirmation.getUser();
+            user.setActive(true);
+            userRepository.save(user);
+            return  user.getEmail() + " confirmed!";
+        }
+
+        throw new RuntimeException("Wrong confirmation code");
+    }
+
+
 }

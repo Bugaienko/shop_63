@@ -9,4 +9,5 @@ import ait.cohor63.shop.model.dto.UserRegisterDTO;
 
 public interface UserService {
     void registerUser(UserRegisterDTO userRegisterDTO);
+    String confirmEmail(String code);
 }

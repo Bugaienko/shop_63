@@ -34,7 +34,7 @@ public class ConfirmationCodeServiceImpl implements ConfirmationCodeService {
         confirmationCode.setCode(code);
         confirmationCode.setUser(user);
         confirmationCode.setExpired(LocalDateTime.now().plusDays(1)); // Устанавливаем срок действия кода 1 день
-//        confirmationCode.setExpired(LocalDateTime.now().plusMinutes(2)); // Устанавливаем срок действия кода 2 минуты
+//        confirmationCode.setExpired(LocalDateTime.now().plusMinutes(1)); // Устанавливаем срок действия кода 2 минуты
 
         repository.save(confirmationCode); // Сохраняем код в БД
 
